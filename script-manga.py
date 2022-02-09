@@ -4,6 +4,7 @@ import os
 from PIL import Image
 from PyPDF2 import PdfFileMerger, PdfFileReader, PdfFileWriter
 import shutil
+
 newmanga = input("Do you want to add a new manga series? (y/n)\n")
 newmanganame = ""
 if newmanga == "y":
@@ -20,7 +21,6 @@ if inputvolumes > 0:
         manganame = input("What is the name of the manga series folder?\n")
 else:
     print("0 or lower is an invalid input")
-
 def volume_creator(manganame):
     url = []
     filenamecount = 1
@@ -30,6 +30,8 @@ def volume_creator(manganame):
     for i in range(len(user_list)):
         user_list[i] = int(user_list[i])
     rangechapterlist = range(user_list[0] , user_list[1] + 1)
+    
+    
     def manga_volume_maker(filename, filenamecount, urlcount): 
         for chapternum in rangechapterlist:
             pagecount = 1
@@ -70,8 +72,7 @@ def volume_creator(manganame):
             filenamecount += 1
             urlcount += 1
     filename = []
-   
-
+    
     for i in rangechapterlist:
             urllistinput = f"https://w12.mangafreak.net/Read1_{manganame}_{i}"
             url.append(urllistinput)
@@ -83,6 +84,8 @@ def volume_creator(manganame):
     else: 
         print("0 or lower is an invalid input")
         exit()
+        
+        
     pdfs = []
     print(user_list)
     for i in rangechapterlist:
@@ -93,9 +96,8 @@ def volume_creator(manganame):
         merger.append(pdf)
     merger.write(f"{manganame}/Volumes/{manganame}_volume_{volumecount + 1}.pdf")
     merger.close() 
-    
     print("PDF file successfully created")   
     
-
+    
 for i in range(0, inputvolumes):
     volume_creator(manganame)    
